@@ -2,19 +2,51 @@
 
 A minimal FastAPI microservice for interacting with Ollama.
 
+## Project Structure
+
+```
+├── backend/          # FastAPI backend service
+│   ├── app/          # Application code
+│   └── requirements.txt
+└── frontend/         # Electron frontend application
+    ├── main.js       # Electron main process
+    ├── preload.js    # Preload script
+    ├── index.html    # UI
+    └── package.json  # Node.js dependencies
+```
+
 ## Setup
 
-1. Install dependencies:
+### Backend Setup
+
+1. Install Python dependencies:
 ```bash
+cd backend
 pip install -r requirements.txt
 ```
 
 2. Ensure Ollama is running on `http://localhost:11434`
 
-3. Run the service:
+3. Run the backend service:
 ```bash
-uvicorn app.main:app --reload
+cd backend
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+### Frontend Setup
+
+1. Install Node.js dependencies:
+```bash
+cd frontend
+npm install
+```
+
+2. Run the Electron app:
+```bash
+npm start
+```
+
+**Note:** Make sure the backend is running before starting the frontend.
 
 ## Usage
 

@@ -1,0 +1,17 @@
+{
+  "name": "ollama-frontend",
+  "version": "1.0.0",
+  "description": "Electron frontend for Ollama microservice",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev"
+  },
+  "keywords": ["electron", "ollama"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}
+
