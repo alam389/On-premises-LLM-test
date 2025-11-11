@@ -8,10 +8,17 @@ A minimal FastAPI microservice for interacting with Ollama.
 ├── backend/          # FastAPI backend service
 │   ├── app/          # Application code
 │   └── requirements.txt
-└── frontend/         # Electron frontend application
-    ├── main.js       # Electron main process
-    ├── preload.js    # Preload script
-    ├── index.html    # UI
+└── frontend/         # Electron frontend application (TypeScript)
+    ├── src/
+    │   ├── main/     # Main process (TypeScript)
+    │   ├── preload/  # Preload scripts (TypeScript)
+    │   ├── renderer/ # Renderer process (UI)
+    │   │   ├── index.html
+    │   │   ├── api/  # Renderer scripts (TypeScript)
+    │   │   └── styles/
+    │   └── types/    # TypeScript type definitions
+    ├── dist/         # Compiled JavaScript (generated)
+    ├── tsconfig.json # TypeScript configuration
     └── package.json  # Node.js dependencies
 ```
 
@@ -41,12 +48,19 @@ cd frontend
 npm install
 ```
 
-2. Run the Electron app:
+2. Build and run the Electron app:
 ```bash
 npm start
 ```
 
+The build process will:
+- Compile TypeScript to JavaScript
+- Copy HTML/CSS assets to the dist folder
+- Launch the Electron application
+
 **Note:** Make sure the backend is running before starting the frontend.
+
+**Development:** Use `npm run watch` to watch for TypeScript changes and rebuild automatically.
 
 ## Usage
 
