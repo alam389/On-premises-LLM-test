@@ -16,8 +16,8 @@ function copyRecursive(src, dest) {
     }
     fs.readdirSync(src).forEach(childItemName => {
       const ext = path.extname(childItemName);
-      // Only copy HTML and CSS files
-      if (ext === '.html' || ext === '.css' || fs.statSync(path.join(src, childItemName)).isDirectory()) {
+      // Only copy HTML files (CSS is compiled by Tailwind)
+      if (ext === '.html' || fs.statSync(path.join(src, childItemName)).isDirectory()) {
         copyRecursive(
           path.join(src, childItemName),
           path.join(dest, childItemName)
@@ -26,7 +26,8 @@ function copyRecursive(src, dest) {
     });
   } else {
     const ext = path.extname(src);
-    if (ext === '.html' || ext === '.css') {
+    // Only copy HTML files (CSS is compiled by Tailwind)
+    if (ext === '.html') {
       fs.copyFileSync(src, dest);
     }
   }
