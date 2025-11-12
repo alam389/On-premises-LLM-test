@@ -55,7 +55,7 @@ const ChatPage: React.FC = () => {
 
     try {
       await chatService.streamChat(
-        { prompt: userMessage.content, model: 'llama2' },
+        { prompt: userMessage.content, model: 'llama3.1' },
         (chunk: StreamChunk) => {
           if (chunk.content) {
             assistantMessage += chunk.content;
@@ -122,8 +122,8 @@ const ChatPage: React.FC = () => {
               <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold tracking-tight text-foreground">Executive Assistant</h1>
-              <p className="text-xs text-muted-foreground">Enterprise AI Platform</p>
+              <h1 className="text-lg font-semibold tracking-tight text-foreground">Jarvis</h1>
+              <p className="text-xs text-muted-foreground">McGregor-Allsop Assistant</p>
             </div>
           </div>
           <Button variant="ghost" size="sm" className="text-xs">

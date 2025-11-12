@@ -68,11 +68,3 @@ export class YourService extends BaseApiClient {
 2. Export it from `services/index.ts`
 3. Add to main `api/index.ts` exports
 
-## Benefits
-
-- **Modularity**: Each service is self-contained
-- **Reusability**: Base client provides common functionality
-- **Type Safety**: Full TypeScript support
-- **Testability**: Easy to mock and test individual services
-- **Maintainability**: Clear separation of concerns
-

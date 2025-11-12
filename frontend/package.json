@@ -5,13 +5,13 @@
   "main": "dist/main/main.js",
   "scripts": {
     "build:main": "tsc",
-    "build:css": ".\\node_modules\\.bin\\tailwindcss.cmd -i ./src/renderer/styles/main.css -o ./dist/renderer/styles/main.css --minify",
-    "build:renderer": "esbuild src/renderer/index.tsx --bundle --outfile=dist/renderer/index.js --platform=browser --target=es2020 --jsx=automatic",
+    "build:css": "node build-css.js",
+    "build:renderer": "esbuild src/renderer/index.tsx --bundle --outfile=dist/renderer/index.js --platform=browser --target=es2020 --jsx=automatic --loader:.css=text",
     "build": "npm run build:main && npm run build:css && npm run build:renderer && node copy-assets.js",
     "start": "npm run build && electron .",
     "dev": "npm run build && electron . --dev",
     "watch:main": "tsc --watch",
-    "watch:css": ".\\node_modules\\.bin\\tailwindcss.cmd -i ./src/renderer/styles/main.css -o ./dist/renderer/styles/main.css --watch",
+    "watch:css": "node watch-css.js",
     "watch:renderer": "esbuild src/renderer/index.tsx --bundle --outfile=dist/renderer/index.js --platform=browser --target=es2020 --jsx=automatic --watch"
   },
   "keywords": [
@@ -21,14 +21,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
-    "autoprefixer": "^10.4.22",
+    "chokidar": "^4.0.3",
     "electron": "^39.1.2",
     "esbuild": "^0.19.8",
     "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.18",
+    "tailwindcss": "^4.1.17",
     "typescript": "^5.3.3"
   },
   "dependencies": {
