@@ -1,25 +1,33 @@
-import httpx
-import json
-from app.config import OLLAMA_BASE_URL
+import ollama
 
 
 async def chat_stream(prompt: str, model: str):
-    """Stream chat completion from Ollama API."""
+    """Stream chat completion from Ollama API using the Ollama library."""
     try:
-        async with httpx.AsyncClient(timeout=300.0) as client:
-            async with client.stream(
-                "POST",
-                f"{OLLAMA_BASE_URL}/api/generate",
-                json={"model": model, "prompt": prompt, "stream": True},
-            ) as response:
-                response.raise_for_status()
-                async for line in response.aiter_lines():
-                    if line:
-                        try:
-                            data = json.loads(line)
-                            yield data
-                        except json.JSONDecodeError:
-                            continue
+        # ollama.chat() with stream=True returns a generator
+        stream = ollama.chat(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            stream=True
+        )
+        
+        # Yield chunks from the stream
+        for chunk in stream:
+            # Ollama library returns chunks with 'message' key containing 'content'
+            if "message" in chunk and "content" in chunk["message"]:
+                yield {"response": chunk["message"]["content"]}
+            elif "done" in chunk and chunk["done"]:
+                yield {"done": True}
+            elif "error" in chunk:
+                yield {"error": chunk["error"]}
+                break
     except Exception as e:
         yield {"error": str(e)}
 
+def chat(prompt: str, model: str):
+    """Non-streaming chat completion from Ollama API."""
+    try:
+        response = ollama.chat(model=model, messages=[{"role": "user", "content": prompt}])
+        return {"response": response["message"]["content"]}
+    except Exception as e:
+        return {"error": str(e)}

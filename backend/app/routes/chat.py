@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 from app.models.chat import ChatRequest
-from app.services.ollama_service import chat_stream
+from app.services.ollama_service import chat_stream, chat
 import json
 
 router = APIRouter()
@@ -24,3 +24,8 @@ async def chat_stream_endpoint(request: ChatRequest):
     
     return StreamingResponse(generate(), media_type="text/event-stream")
 
+@router.post("/api/v1/chat")
+async def chat_endpoint(request: ChatRequest):
+    # chat() is synchronous, FastAPI will run it in a thread pool
+    result = chat(request.prompt, request.model)
+    return result
