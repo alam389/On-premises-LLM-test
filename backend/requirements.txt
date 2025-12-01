@@ -5,3 +5,4 @@ pydantic
 ollama
 python-multipart
 fastapi-file-upload
+chromadb

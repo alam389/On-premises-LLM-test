@@ -31,3 +31,4 @@ def chat(prompt: str, model: str):
         return {"response": response["message"]["content"]}
     except Exception as e:
         return {"error": str(e)}
+
